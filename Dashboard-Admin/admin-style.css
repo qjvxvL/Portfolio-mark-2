@@ -1,0 +1,521 @@
+:root {
+  --primary: #ff6700;
+  --primary-gradient: linear-gradient(135deg, #fa6e00, #e60026);
+  --background: #121212;
+  --card-bg: #1a1a1a;
+  --sidebar-bg: #1b1b1b;
+  --text-primary: #ffffff;
+  --text-secondary: #959595;
+  --text-muted: #707070;
+  --danger: #e74c3c;
+  --success: #2ecc71;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background: var(--content-bg);
+  color: var(--text-primary);
+}
+
+.admin-container {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* Sidebar Styles */
+.sidebar {
+  width: 250px;
+  background: var(--sidebar-bg);
+  color: white;
+  padding: 1rem;
+  transition: all 0.3s ease;
+}
+
+.logo h2 {
+  padding: 1rem;
+  text-align: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.sidebar nav ul {
+  list-style: none;
+  margin-top: 2rem;
+}
+
+.sidebar nav ul li a {
+  color: white;
+  text-decoration: none;
+  padding: 0.8rem 1rem;
+  display: flex;
+  align-items: center;
+  transition: all 0.3s ease;
+  border-radius: 5px;
+  margin-bottom: 0.5rem;
+}
+
+.sidebar nav ul li a i {
+  margin-right: 10px;
+  width: 20px;
+  text-align: center;
+}
+
+.sidebar nav ul li a:hover,
+.sidebar nav ul li a.active {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--primary-color);
+}
+
+/* Content Area */
+.content {
+  flex: 1;
+  background: var(--content-bg);
+}
+
+header {
+  background: var(--card-bg);
+  padding: 1rem 2rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: var(--text-primary);
+  cursor: pointer;
+}
+
+.user-info {
+  display: flex;
+  /*flex ends the elements to the right*/
+  justify-content: flex-end;
+  width: 100%;
+  align-items: center;
+  gap: 1rem;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* Main Section Styles */
+.main-section {
+  padding: 2rem;
+  display: none;
+}
+
+.main-section.active {
+  display: block;
+}
+
+/* Projects Grid */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.project-card {
+  background: var(--card-bg);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.project-card:hover {
+  transform: translateY(-5px);
+}
+
+.project-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.project-card h3 {
+  padding: 1rem;
+  margin: 0;
+}
+
+.project-card p {
+  padding: 0 1rem 1rem;
+  color: var(--text-secondary);
+}
+#projects h2 {
+  margin-bottom: 1em;
+}
+
+/* Form Styles */
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 0.8rem;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+/* Modal Styles */
+.modal {
+  display: none;
+  position: fixed;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+}
+
+.modal.active {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-content {
+  background: var(--card-bg);
+  padding: 2rem;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 600px;
+}
+
+/* Button Styles */
+.add-btn {
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: background 0.3s ease;
+}
+
+.add-btn:hover {
+  background: var(--primary);
+}
+
+.save-btn {
+  background: var(--success);
+  color: white;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.cancel-btn {
+  background: var(--text-secondary);
+  color: white;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-left: 1rem;
+}
+
+.button-group {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 1.5rem;
+}
+
+/* Skills List */
+.skill-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+#skillsList {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+}
+
+.skill-card {
+  background: var(--card-bg);
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  margin: 1em;
+  padding: 1em;
+  border-radius: 8px;
+  transition: transform 0.3s ease;
+}
+.skill-card:hover {
+  transform: translateY(-3px);
+}
+
+.card-actions-skill {
+  display: flex;
+  flex-direction: row;
+  gap: 1em;
+}
+
+.edit-btn-skill {
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.remove-skill {
+  background: var(--danger);
+  color: white;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .sidebar {
+    position: fixed;
+    left: -250px;
+    height: 100%;
+    z-index: 1000;
+  }
+
+  .sidebar.active {
+    left: 0;
+  }
+
+  #menu-toggle {
+    display: block;
+  }
+
+  .content {
+    margin-left: 0;
+  }
+
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
+}
+/* Update existing styles */
+body {
+  background: var(--background);
+  color: var(--text-primary);
+}
+
+.sidebar {
+  background: var(--sidebar-bg);
+  color: var(--text-primary);
+}
+
+.sidebar nav ul li a {
+  color: var(--text-secondary);
+}
+
+.sidebar nav ul li a:hover,
+.sidebar nav ul li a.active {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--primary);
+}
+
+.content {
+  background: var(--background);
+}
+
+header {
+  background: var(--card-bg);
+}
+
+.project-card {
+  background: var(--card-bg);
+}
+
+.project-card p {
+  color: var(--text-secondary);
+}
+
+.form-group input,
+.form-group textarea {
+  background: var(--card-bg);
+  border: 1px solid #333;
+  color: var(--text-primary);
+}
+
+.modal-content {
+  background: var(--sidebar-bg);
+}
+
+.add-btn {
+  background: var(--primary);
+  background-image: var(--primary-gradient);
+}
+
+.add-btn:hover {
+  opacity: 0.9;
+}
+
+.save-btn {
+  background: var(--primary);
+  background-image: var(--primary-gradient);
+}
+
+.save-btn:hover {
+  opacity: 0.9;
+}
+
+.card-actions {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.edit-btn {
+  margin: 0.5em;
+  padding: 1em;
+  background: var(--primary);
+  background-image: var(--primary-gradient);
+  border-radius: 0.5em;
+}
+
+.edit-btn:hover {
+  opacity: 0.9;
+}
+
+.delete-btn {
+  margin: 0.5em;
+  padding: 1em;
+  background: var(--danger);
+  border-radius: 0.5em;
+}
+
+.delete-btn:hover {
+  opacity: 0.9;
+  border-radius: 0.5em;
+}
+
+#editProjectModal {
+  display: none;
+  position: fixed;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+}
+
+#logoutModal {
+  display: none;
+  position: fixed;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  transition: all 0.3s ease;
+}
+
+#logout-div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: auto;
+  width: 100%;
+  gap: 2em;
+}
+
+#logout button {
+  padding: 1em;
+  cursor: pointer;
+  background: var(--primary);
+  border: none;
+  border-radius: 8px;
+  color: var(--text-primary);
+}
+
+#logout button:hover {
+  background: var(--danger);
+  opacity: 0.9;
+  border-radius: 0.5em;
+}
+
+#addSkillModal {
+  display: none;
+  position: fixed;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+}
+
+#editSkillModal {
+  display: none;
+  position: fixed;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+}
+
+.save-btn-skill {
+  background: var(--primary);
+  background-image: var(--primary-gradient);
+  color: var(--text-primary);
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 5px;
+  cursor: pointer;
+}

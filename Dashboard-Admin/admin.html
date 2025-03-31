@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="admin-style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <div class="admin-container">
+      <aside class="sidebar">
+        <div class="logo">
+          <h2>Admin Panel</h2>
+        </div>
+        <nav>
+          <ul>
+            <li>
+              <a href="#dashboard" class="nav-link" data-section="dashboard">
+                <i class="fas fa-home"></i> Dashboard</a
+              >
+            </li>
+            <li>
+              <a href="#projects" class="nav-link" data-section="projects">
+                <i class="fas fa-project-diagram"></i> Projects</a
+              >
+            </li>
+            <li>
+              <a href="#about" class="nav-link" data-section="about">
+                <i class="fas fa-user"></i> About Me</a
+              >
+            </li>
+            <li>
+              <a
+                href="#logout"
+                class="nav-link"
+                data-section="logout"
+                id="logout-btn"
+              >
+                <i class="fas fa-sign-out-alt"></i> Logout</a
+              >
+            </li>
+          </ul>
+        </nav>
+      </aside>
+
+      <main class="content">
+        <header>
+          <div class="header-content">
+            <button id="menu-toggle"><i class="fas fa-bars"></i></button>
+            <div class="user-info">
+              <span>Admin User</span>
+              <img src="/images/dwiki.jpg" alt="Admin" class="avatar" />
+            </div>
+          </div>
+        </header>
+
+        <!-- Dashboard Section -->
+        <section id="dashboard" class="main-section">
+          <h2>Dashboard</h2>
+          <p>Welcome to the Admin Dashboard!</p>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="main-section">
+          <h2>Manage Projects Or Creations</h2>
+          <button class="add-btn" id="addProjectBtn">
+            <i class="fas fa-plus"></i> Add New Project
+          </button>
+
+          <div class="projects-grid">
+            <!-- Project cards will be loaded here dynamically -->
+          </div>
+
+          <!-- Add/Edit Project Modal -->
+          <div id="projectModal" class="modal">
+            <div class="modal-content">
+              <h3 id="modalTitle">Add New Project</h3>
+              <form id="projectForm">
+                <input type="hidden" id="projectId" />
+                <div class="form-group">
+                  <label for="projectTitle">Project Title</label>
+                  <input type="text" id="projectTitle" required />
+                </div>
+                <div class="form-group">
+                  <label for="projectDescription">Description</label>
+                  <textarea id="projectDescription" required></textarea>
+                </div>
+                <div class="form-group">
+                  <label for="projectImage">Image URL</label>
+                  <input type="text" id="projectImage" required />
+                </div>
+                <div class="button-group">
+                  <button type="submit" class="save-btn">Save</button>
+                  <button type="button" class="cancel-btn">Cancel</button>
+                </div>
+              </form>
+            </div>
+          </div>
+
+          <!-- edit project -->
+          <div id="editProjectModal">
+            <div class="modal-content">
+              <h3 id="editModalTitle">Edit Project</h3>
+              <form id="editProjectForm">
+                <input type="hidden" id="editProjectId" />
+                <div class="form-group">
+                  <label for="editProjectTitle">Project Title</label>
+                  <input type="text" id="editProjectTitle" required />
+                </div>
+                <div class="form-group">
+                  <label for="editProjectDescription">Description</label>
+                  <textarea id="editProjectDescription" required></textarea>
+                </div>
+                <div class="form-group">
+                  <label for="editProjectImage">Image URL</label>
+                  <input type="text" id="editProjectImage" required />
+                </div>
+                <div class="button-group">
+                  <button
+                    onclick="editProject(project.id)"
+                    type="submit"
+                    id="editSubmit"
+                    class="save-btn"
+                  >
+                    Save
+                  </button>
+                  <button type="button" id="editCancel" class="cancel-btn">
+                    Cancel
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </section>
+
+        <!-- About Me Section -->
+        <section id="about" class="main-section">
+          <!-- <h2>Edit "About Me" Portfolio Section</h2>
+
+          <div class="form-group">
+            <label for="aboutBio">Bio</label>
+            <textarea id="aboutBio" rows="5" required></textarea>
+          </div> -->
+          <div class="form-group">
+            <label>Skills</label>
+            <div id="skillsList">
+              <!-- Skills will be loaded here -->
+              <!-- <div class="skill-item">
+                  <input type="text" placeholder="Add skill" />
+                  <button type="button" class="remove-skill">Delete</button>
+                </div> -->
+            </div>
+            <button type="button" id="addSkill" class="add-btn">
+              <i class="fas fa-plus"></i> Add Skill
+            </button>
+          </div>
+          <!-- <button type="submit" class="save-btn">Save Changes</button> -->
+        </section>
+
+        <!-- Logout Section -->
+        <section id="logout" class="main-section">
+          <div id="logout-div">
+            <h2>Logout</h2>
+            <button id="logoutBtn">Logout Now</button>
+          </div>
+        </section>
+
+        <!-- Logout Modal -->
+        <div id="logoutModal" class="modal">
+          <div class="modal-content">
+            <h3>Logout</h3>
+            <p>Are you sure you want to logout?</p>
+            <div class="button-group">
+              <button id="logoutConfirm" class="save-btn">Yes</button>
+              <button id="logoutCancel" class="cancel-btn">No</button>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!-- Add Skill Modal -->
+    <div id="addSkillsModal" class="modal">
+      <div class="modal-content">
+        <h3>Add Skill Now</h3>
+        <form id="skillForm">
+          <div class="form-group">
+            <label for="skill">Skill</label>
+            <input type="text" id="skill" required />
+          </div>
+          <div class="form-group">
+            <label for="skillDescription">Description</label>
+            <textarea id="skillDescription" required></textarea>
+          </div>
+          <div class="button-group">
+            <button type="submit" class="save-btn-skill">Save</button>
+            <button type="button" class="cancel-btn">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Edit Skill Modal -->
+    <div id="editSkillModal" class="modal">
+      <div class="modal-content">
+        <h3>Edit Skill</h3>
+        <form id="editSkillForm">
+          <input type="hidden" id="editSkillId" />
+          <div class="form-group">
+            <label for="editSkill">Skill</label>
+            <input type="text" id="editSkill" required />
+          </div>
+          <div class="form-group">
+            <label for="editSkillDescription">Description</label>
+            <textarea id="editSkillDescription" required></textarea>
+          </div>
+          <div class="button-group">
+            <button type="submit" class="save-btn-skill">Save</button>
+            <button type="button" class="cancel-btn">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <script src="admin.js"></script>
+  </body>
+</html>

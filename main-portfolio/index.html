@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dwiki Yulian - Jobs Portfolio</title>
+    <link rel="stylesheet" href="/main-portfolio/styles.css" />
+    <style></style>
+    <script
+      src="https://kit.fontawesome.com/8edded5622.js"
+      crossorigin="anonymous"
+    ></script>
+    <style>
+      /* Add these styles to your styles.css file */
+
+      .hero {
+        position: relative;
+        z-index: 1;
+      }
+
+      #networkCanvas {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: -1;
+        pointer-events: none; /* Allow clicking through the canvas */
+      }
+
+      /* Adjust the hero background to be transparent or semi-transparent */
+      .container {
+        position: relative;
+        z-index: 2;
+      }
+
+      /* You might want to adjust background opacity of existing elements */
+      .hero-content,
+      .hero-image {
+        position: relative;
+        z-index: 2; /* Ensure content appears above the canvas */
+      }
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <canvas id="networkCanvas"></canvas>
+
+    <div class="container">
+      <!-- Navigation -->
+      <nav>
+        <div class="logo">Portfolio</div>
+        <div class="menu">
+          <a href="#home" class="active">Home</a>
+          <a href="#services">Services</a>
+          <a href="#about">About me</a>
+          <a href="#portfolio">Portfolio</a>
+          <a href="#contactme">Contact me</a>
+        </div>
+        <button class="hire-button">Hire Me</button>
+      </nav>
+
+      <!-- Hero Section -->
+      <div class="hero">
+        <div class="hero-content">
+          <p class="hero-intro">Hi I am</p>
+          <h2 class="hero-name">Dwiki Yulian</h2>
+          <h1 class="hero-title">Software Engineer</h1>
+
+          <div class="social-icons">
+            <div class="social-icon">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#ffffff"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                <path
+                  d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"
+                ></path>
+                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+              </svg>
+            </div>
+            <div class="social-icon">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#ffffff"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path
+                  d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"
+                ></path>
+                <rect x="2" y="9" width="4" height="12"></rect>
+                <circle cx="4" cy="4" r="2"></circle>
+              </svg>
+            </div>
+            <div class="social-icon">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#ffffff"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <circle cx="12" cy="12" r="10"></circle>
+                <circle cx="12" cy="12" r="4"></circle>
+                <line x1="4.93" y1="4.93" x2="9.17" y2="9.17"></line>
+                <line x1="14.83" y1="14.83" x2="19.07" y2="19.07"></line>
+                <line x1="14.83" y1="9.17" x2="19.07" y2="4.93"></line>
+                <line x1="4.93" y1="19.07" x2="9.17" y2="14.83"></line>
+              </svg>
+            </div>
+            <div class="social-icon">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#ffffff"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                <path d="M14 16H9v-3l2-3l3 4"></path>
+                <line x1="9" y1="13" x2="16" y2="13"></line>
+              </svg>
+            </div>
+          </div>
+
+          <div class="buttons">
+            <button class="hire-button">Hire Me</button>
+            <button class="cv-button">Download CV</button>
+          </div>
+          <div class="stats">
+            <div class="stat">
+              <div class="stat-number">1+</div>
+              <div class="stat-label">Experiences</div>
+            </div>
+            <div class="stat">
+              <div class="stat-number">5+</div>
+              <div class="stat-label">Project done</div>
+            </div>
+            <!-- <div class="stat">
+              <div class="stat-number">1+</div>
+              <div class="stat-label">Happy Clients</div>
+            </div> -->
+          </div>
+        </div>
+
+        <div class="hero-image">
+          <img
+            src="/images/dwiki.jpg"
+            alt="Dwiki Yulian"
+            class="profile-image"
+          />
+        </div>
+      </div>
+
+      <!-- Stats Section -->
+
+      <!-- Slider Navigation -->
+    </div>
+    <!-- Services Section -->
+    <div id="services">
+      <div class="container">
+        <h1 class="sub-title">Services</h1>
+        <h2 class="section-title">What I do</h2>
+        <div class="services-list">
+          <div>
+            <i class="fa-sharp fa-solid fa-code"></i>
+            <h2>Web Developer</h2>
+            <p>
+              A web developer is a professional who designs, builds, and
+              maintains websites and web applications. Web developers use
+              various programming languages, frameworks, and tools to create
+              user-friendly and interactive web pages.
+            </p>
+          </div>
+          <div>
+            <i class="fa-solid fa-gamepad"></i>
+            <h2>Indie Game Developer</h2>
+            <p>
+              A game developer is someone who creates video games using various
+              skills and tools. Game developers can work on different aspects of
+              game development, such as visuals, artificial intelligence, user
+              interface, and game logic.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- About Section -->
+    <div id="about">
+      <div class="container">
+        <h1 class="sub-title">About Me</h1>
+        <h2 class="section-title">My Introduction</h2>
+        <div class="row">
+          <div class="about-col-1">
+            <img src="images/GLM_1568-removebg-preview (4).png" alt="" />
+          </div>
+          <div class="about-col-2">
+            <p>
+              I am a passionate and creative game programmer and web developer
+              with a strong interest in creating immersive and engaging
+              experiences for players and users. I have experience in developing
+              games using Unity, and C#, as well as web applications using HTML,
+              CSS, and JavaScript. I am eager to learn new skills and
+              technologies, and to apply my knowledge and creativity to
+              challenging and rewarding tasks. I am looking for an intern
+              position where I can contribute to the development of high-quality
+              games and web products, while gaining valuable industry experience
+              and feedback.
+            </p>
+
+            <div class="tab-titles">
+              <p class="tab-links active-links" onclick="opentab('skills')">
+                Skills
+              </p>
+              <p class="tab-links" onclick="opentab('experience')">
+                Experience
+              </p>
+              <p class="tab-links" onclick="opentab('education')">Education</p>
+            </div>
+            <div class="tab-contents active-tab" id="skills">
+              <!-- <ul>
+                <li>
+                  <span>Web Development</span><br />Made Portfolio website
+                </li>
+                <li>
+                  <span>Game Development With Unity</span><br />
+                  Made a game with Unity Engine
+                </li>
+                <li>
+                  <span>Mobile App Development With Flutter</span><br />
+                  Made a mobile app with Flutter
+                </li>
+                <li>
+                  <span>Game Development With C#</span><br />
+                  Made a game with C#
+                </li>
+                <li>
+                  <span> Firebase</span><br />
+                  Backend development with firebase
+                </li>
+              </ul> -->
+            </div>
+
+            <div class="tab-contents" id="experience">
+              <ul>
+                <li>
+                  <span>Samsung Solve For Tomorrow 2024</span> <br />
+                  Made an ambitious project to modernize waste management
+                </li>
+
+                <li>
+                  <span>Teaching Assistant at Binus University</span> <br />
+                  Helped students and taught them about computer science
+                </li>
+
+                <li>
+                  <span>Lecturer Assistant at Binus University</span>
+                  <br />Ready to help when lecturer need help about their side
+                  project
+                </li>
+                <li>
+                  <span>NASA Space Apps Challenge Local Lead Malang 2025</span>
+                  <br />
+                  Organize an event in Malang
+                </li>
+              </ul>
+            </div>
+            <div class="tab-contents" id="education">
+              <ul>
+                <li>
+                  <span>2023 - 2027</span><br />Computer Science From Binus
+                  University
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Portfolio Section -->
+    <div id="portfolio">
+      <div class="container">
+        <h1 class="sub-title">My Works</h1>
+        <h2 class="section-title">My Work is my creation</h2>
+        <div class="work-list">
+          <!-- Work Item From Database-->
+        </div>
+        <a href="#" class="btn">See More</a>
+      </div>
+    </div>
+
+    <!-- Contact Section -->
+    <div id="contactme">
+      <div class="container">
+        <h1 class="sub-title">Contact Me</h1>
+        <h2 class="section-title">Reach Out and Connect with Me</h2>
+        <div class="contact-form">
+          <form name="submit-to-google-sheet">
+            <div class="contact-input-row">
+              <div class="form-group">
+                <input
+                  type="text"
+                  name="Name"
+                  placeholder="Your Name"
+                  required
+                />
+              </div>
+
+              <div class="form-group">
+                <input
+                  type="email"
+                  name="Email"
+                  placeholder="Your Email"
+                  required
+                />
+              </div>
+            </div>
+
+            <div class="contact-input-row">
+              <div class="form-group">
+                <input
+                  type="phone"
+                  name="Phone"
+                  placeholder="Phone Number"
+                  required
+                />
+              </div>
+
+              <div class="form-group">
+                <select name="Service">
+                  <option value="" disabled selected>
+                    Service Of Interest
+                  </option>
+                  <option value="web Development">Web Development</option>
+                  <option value="Design">Design</option>
+                  <option value="Mobile Dev">Mobile Development</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="contact-input-row">
+              <div class="form-group">
+                <input
+                  type="text"
+                  name="Timeline"
+                  placeholder="Timeline"
+                  required
+                />
+              </div>
+
+              <div class="form-group">
+                <textarea
+                  name="Message"
+                  id=""
+                  cols="30"
+                  rows="10"
+                  placeholder="Your Message"
+                ></textarea>
+              </div>
+            </div>
+
+            <div class="contact-button">
+              <button type="submit">Submit</button>
+            </div>
+          </form>
+        </div>
+        <span id="msg"></span>
+      </div>
+    </div>
+    <!-- footer Section -->
+    <footer class="footer">
+      <div class="footer-container">
+        <div class="logo"><h3>Portfolio</h3></div>
+        <div class="menu">
+          <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Services</a></li>
+            <li><a href="#">About me</a></li>
+            <li><a href="#">Portfolio</a></li>
+            <li><a href="#">Contact me</a></li>
+          </ul>
+        </div>
+
+        <div class="social-icons">
+          <div class="social-icon">
+            <i class="instagram fab fa-instagram"></i>
+          </div>
+          <div class="social-icon">
+            <i class="linkedin fab fa-linkedin"></i>
+          </div>
+          <div class="social-icon"><i class="github fab fa-github"></i></div>
+          <div class="social-icon">
+            <i class="stackoverflow fab fa-stack-overflow"></i>
+          </div>
+        </div>
+
+        <div class="contact-info">
+          <div class="contact-info-item">
+            <i class="fa-email fa-regular fa-envelope"></i>
+            <p>dwikiyulian7@gmail.com</p>
+          </div>
+          <div class="contact-info-item">
+            <i class="phone fa-solid fa-phone"></i>
+            <p>082132453037</p>
+          </div>
+        </div>
+        <div class="hr"><hr width="100%" size="2" /></div>
+        <div class="copy-right">
+          <p>&copy; 2025 Dwiki Yulian. All Rights Reserved</p>
+        </div>
+      </div>
+    </footer>
+    <script src="/main-portfolio/canvas.js"></script>
+    <script src="/main-portfolio/index.js"></script>
+  </body>
+</html>

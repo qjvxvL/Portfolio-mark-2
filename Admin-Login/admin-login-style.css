@@ -1,0 +1,89 @@
+:root {
+  --primary: #fd6f00;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  background-color: var(--primary);
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+.header {
+  margin-top: 1.5em;
+}
+
+h1,
+h2,
+p {
+  color: black;
+}
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+.card {
+  display: flex;
+  flex-direction: column;
+  width: 475px;
+  height: 550px;
+  background-color: #fceadd;
+  margin: 0 auto;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-top: 5rem;
+  align-items: center;
+  gap: 2em;
+  opacity: 0.9;
+}
+.second-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1em;
+}
+.form-container {
+  width: 100%;
+}
+.sub-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2em;
+  width: 100%;
+}
+#login-form {
+  width: 100%;
+}
+.form-group {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+input {
+  padding: 1em;
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+#login-button {
+  padding: 1em;
+  background-color: var(--primary);
+  color: white;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 1em;
+  border-radius: 8px;
+}
