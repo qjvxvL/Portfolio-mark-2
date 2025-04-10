@@ -1,5 +1,42 @@
-document.addEventListener("DOMContentLoaded", function (e) {
+async function checkAuth() {
+  try {
+    const response = await fetch("/check-auth", {
+      credentials: "include",
+      cache: "no-store",
+    });
+
+    if (!response.ok) {
+      window.location.href = "/Admin-Login/admin-login.html";
+      return;
+    }
+
+    const data = await response.json();
+    if (!data.authenticated) {
+      window.location.href = "/Admin-Login/admin-login.html";
+    }
+  } catch (error) {
+    console.error("Auth check failed:", error);
+    window.location.href = "/Admin-Login/admin-login.html";
+  }
+}
+
+async function logout() {
+  try {
+    const response = await fetch("/logout", {
+      method: "POST",
+      credentials: "include",
+    });
+
+    // Force a redirect instead of history replacement
+    window.location.href = "/Admin-Login/admin-login.html";
+  } catch (error) {
+    console.error("Logout error:", error);
+  }
+}
+
+document.addEventListener("DOMContentLoaded", async function (e) {
   e.preventDefault();
+
   // Navigation
   const navLinks = document.querySelectorAll(".nav-link");
   const sections = document.querySelectorAll(".main-section");
@@ -176,14 +213,61 @@ document.addEventListener("DOMContentLoaded", function (e) {
   const logoutConfirmBtn = document.getElementById("logoutConfirm");
   const logoutCancelBtn = document.getElementById("logoutCancel");
 
-  logoutConfirmBtn.addEventListener("click", () => {
-    window.location.href = "/Admin-Login/admin-login.html";
+  logoutConfirmBtn.addEventListener("click", async () => {
+    try {
+      const response = await fetch("http://localhost:3000/logout", {
+        method: "POST",
+        credentials: "include",
+      });
+
+      const data = await response.json();
+      if (data.success) {
+        // Clear any cached authentication state
+        sessionStorage.clear();
+        localStorage.removeItem("isLoggedIn"); // If you're using localStorage for any login state
+
+        // Force a complete page reload to the login page
+        window.location.replace("/Admin-Login/admin-login.html");
+      } else {
+        console.error("Logout failed:", data.message);
+        alert("Logout failed. Please try again.");
+      }
+    } catch (error) {
+      console.error("Logout error:", error);
+      alert("Logout failed. Please check your connection and try again.");
+    }
   });
 
   logoutCancelBtn.addEventListener("click", () => {
     logoutModal.style.display = "none";
   });
-  loadProjects();
+
+  // Auth check on page load - add this
+  document.addEventListener("DOMContentLoaded", async () => {
+    try {
+      const response = await fetch("http://localhost:3000/check-auth", {
+        credentials: "include",
+        cache: "no-store", // Prevent caching
+      });
+
+      if (!response.ok) {
+        window.location.replace("/Admin-Login/admin-login.html");
+        return;
+      }
+
+      const data = await response.json();
+      if (!data.authenticated) {
+        window.location.replace("/Admin-Login/admin-login.html");
+        return;
+      }
+
+      // Continue loading the page
+      loadProjects();
+    } catch (error) {
+      console.error("Auth check error:", error);
+      window.location.replace("/Admin-Login/admin-login.html");
+    }
+  });
 
   // End of log out direction
   // About Me Section
@@ -325,6 +409,6 @@ document.addEventListener("DOMContentLoaded", function (e) {
       });
     }
   });
-
+  loadProjects();
   loadSkills();
 });

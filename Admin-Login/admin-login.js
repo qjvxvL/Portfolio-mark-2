@@ -7,6 +7,7 @@ document.getElementById("login-form").addEventListener("submit", async (e) => {
   try {
     const response = await fetch("http://localhost:3000/login", {
       method: "POST",
+      credentials: "include", // This is correct
       headers: {
         "Content-Type": "application/json",
       },
@@ -15,14 +16,16 @@ document.getElementById("login-form").addEventListener("submit", async (e) => {
 
     const data = await response.json();
 
-    if (data.success) {
-      alert("Login successful!");
-      window.location.href = "/Dashboard-Admin/admin.html";
+    if (response.ok && data.success) {
+      console.log("Login successful, redirecting...");
+      // Use this instead - it ensures full page load with new cookies
+      window.location.href = data.redirectUrl;
     } else {
-      alert("Invalid username or password!");
+      console.error("Login failed:", data.message);
+      alert(data.message || "Invalid username or password!");
     }
   } catch (error) {
     console.error("Login error:", error);
-    alert("Login failed!");
+    alert("Login failed. Please try again.");
   }
 });

@@ -1,10 +1,47 @@
 const express = require("express");
 const { Client } = require("pg");
 const cors = require("cors");
+const session = require("express-session");
+const path = require("path");
+const auth = require("./middleware/auth");
 const app = express();
 
-app.use(cors());
+const allowedOrigins = ["http://127.0.0.1:5502", "http://localhost:5502"];
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type"],
+  })
+);
+
 app.use(express.json());
+app.use(express.static(path.join(__dirname, "../")));
+
+// Update the session middleware configuration
+app.use(
+  session({
+    secret: "secret-key",
+    resave: true, // Changed to true
+    saveUninitialized: false, // Keep false to save only when needed
+    rolling: true, // Added rolling sessions
+    cookie: {
+      secure: false,
+      httpOnly: true,
+      maxAge: 24 * 60 * 60 * 1000,
+      sameSite: "lax",
+      path: "/",
+    },
+    name: "sessionId",
+  })
+);
 
 const client = new Client({
   host: "localhost",
@@ -16,21 +53,112 @@ const client = new Client({
 
 client.connect();
 
+// Remove the duplicate app.post("/login"...) and keep only one with these updates:
 app.post("/login", async (req, res) => {
   const { username, password } = req.body;
   try {
     const result = await client.query(
-      "SELECT * FROM users WHERE username = $1 AND password = $2",
-      [username, password]
+      "SELECT * FROM users WHERE username = $1",
+      [username]
     );
 
-    if (result.rows.length > 0) {
-      res.json({ success: true });
-    } else {
-      res.json({ success: false, message: "Invalid credentials" });
+    if (result.rows.length === 0) {
+      return res
+        .status(401)
+        .json({ success: false, message: "Invalid credentials" });
     }
+
+    const user = result.rows[0];
+
+    // Simulate password verification (replace with bcrypt)
+    if (password !== user.password) {
+      return res
+        .status(401)
+        .json({ success: false, message: "Invalid credentials" });
+    }
+
+    req.session.isAuthenticated = true;
+    req.session.user = {
+      id: user.id,
+      username: user.username,
+    };
+
+    req.session.save((err) => {
+      if (err) {
+        console.error("Session save error:", err);
+        return res
+          .status(500)
+          .json({ success: false, message: "Session error" });
+      }
+      res.json({ success: true, redirectUrl: "/Dashboard-Admin/admin.html" });
+    });
   } catch (error) {
-    res.json({ success: false, message: error.message });
+    console.error("Login error:", error);
+    res.status(500).json({ success: false, message: error.message });
+  }
+});
+
+// Make sure this comes BEFORE any admin routes
+app.use(["/Dashboard-Admin", "/Dashboard-Admin/*"], auth);
+
+app.post("/logout", (req, res) => {
+  req.session.destroy((err) => {
+    if (err) {
+      console.error("Logout error:", err);
+      return res.status(500).json({ success: false, message: "Logout failed" });
+    }
+
+    // Clear the cookie
+    res.clearCookie("sessionId");
+
+    // Add cache-control headers
+    res.setHeader("Cache-Control", "no-store, no-cache, must-revalidate");
+    res.setHeader("Pragma", "no-cache");
+
+    res.json({ success: true });
+  });
+});
+
+app.get("/Dashboard-Admin/admin.html", (req, res) => {
+  if (!req.session.isAuthenticated) {
+    return res.redirect("/Admin-Login/admin-login.html");
+  }
+
+  // Add cache-control headers
+  res.setHeader(
+    "Cache-Control",
+    "no-store, no-cache, must-revalidate, proxy-revalidate"
+  );
+  res.setHeader("Pragma", "no-cache");
+  res.setHeader("Expires", "0");
+
+  res.sendFile(path.join(__dirname, "../Dashboard-Admin/admin.html"));
+});
+
+app.get("/check-auth", (req, res) => {
+  // Debug logging
+  console.log("Full session:", {
+    id: req.sessionID,
+    session: req.session,
+    isAuth: req.session?.isAuthenticated,
+    user: req.session?.user,
+  });
+
+  if (req.session && req.session.isAuthenticated === true) {
+    res.json({
+      authenticated: true,
+      user: req.session.user,
+    });
+  } else {
+    // Clear invalid session
+    req.session.destroy((err) => {
+      if (err) console.error("Session destroy error:", err);
+      res.clearCookie("sessionId");
+      res.status(401).json({
+        authenticated: false,
+        message: "No valid session found",
+      });
+    });
   }
 });
 
